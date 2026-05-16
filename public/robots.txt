@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /blog/
+
+# Block build/debug artifacts in case any leak into the deploy
+Disallow: /assets/dev-
+Disallow: /sw.js
+Disallow: /workbox-
+
+Sitemap: https://spidersolitaire.xyz/sitemap.xml
