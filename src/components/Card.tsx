@@ -44,26 +44,22 @@ export function Card({
   const red = card.suit === 'hearts' || card.suit === 'diamonds'
   const showFront = card.faceUp || isPeeked
 
-  // Row-by-row stagger: cardIndex * columns + columnIndex → natural wave across the tableau
-  const dealDelay = dealIndex * 0.022   // 22 ms per card → 54 cards ≈ 1.4 s total
+  // Row-by-row stagger: 8 ms per card → 54 cards deal in ≈ 0.6 s total
+  const dealDelay = dealIndex * 0.008
 
-  // easeOutExpo — snappy start, buttery landing, like a card being dealt
+  // easeOutExpo — snappy start, buttery landing
   const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
   return (
     <motion.button
       layoutId={card.id}
-      layout="position"
       ref={setNodeRef}
-      initial={{ opacity: 0, y: -28, x: -10, rotateZ: -5, scale: 0.88 }}
-      animate={{ opacity: 1, y: 0,   x: 0,   rotateZ:  0, scale: 1    }}
+      initial={{ opacity: 0, y: -24, x: -8, rotateZ: -4, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0,   x: 0,  rotateZ:  0, scale: 1   }}
       transition={{
-        // layout moves (card dragged to new column) use a fast spring
-        layout: { type: 'spring', stiffness: 500, damping: 36, mass: 0.8 },
-        // initial deal animation uses smooth ease-out expo
-        default: { delay: dealDelay, duration: 0.28, ease: easeOutExpo },
-        // opacity fades in quickly so cards don't ghost
-        opacity:  { delay: dealDelay, duration: 0.14, ease: 'easeOut' },
+        layout:  { type: 'spring', stiffness: 500, damping: 36, mass: 0.8 },
+        default: { delay: dealDelay, duration: 0.18, ease: easeOutExpo },
+        opacity: { delay: dealDelay, duration: 0.10, ease: 'easeOut'   },
       }}
       style={{
         transform: CSS.Translate.toString(transform),

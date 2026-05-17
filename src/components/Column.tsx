@@ -1,5 +1,4 @@
 import { useDroppable } from '@dnd-kit/core'
-import { motion } from 'framer-motion'
 import { useRef } from 'react'
 import { Card } from './Card'
 import type { Column as ColumnType, Difficulty } from '../types/game'
@@ -72,10 +71,8 @@ export function Column({
           </button>
         )}
       </div>
-      <motion.div
+      <div
         ref={setNodeRef}
-        layout="size"
-        transition={{ type: 'spring', stiffness: 500, damping: 36, mass: 0.8 }}
         className={`relative min-h-[calc(var(--card-h)+220px)] rounded-md ${isOver ? 'bg-white/10' : ''}`}
       >
         {column.cards.length === 0 && (
@@ -107,7 +104,7 @@ export function Column({
             />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }

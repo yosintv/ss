@@ -7,7 +7,6 @@ import {
   useSensors,
   type DragEndEvent
 } from '@dnd-kit/core'
-import { LayoutGroup } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { Column } from './Column'
 import { Foundation } from './Foundation'
@@ -104,7 +103,6 @@ export function Game(): JSX.Element {
         <p className="mx-auto mb-2 block w-fit rounded-full bg-black/35 px-3 py-1 text-center text-[11px] font-medium text-white/90 backdrop-blur-sm sm:text-xs md:hidden">
           Swipe to scroll columns · double-tap a card to auto-move
         </p>
-        <LayoutGroup>
         <div className="mx-auto flex min-w-max max-w-[1300px] justify-center gap-3">
           {tableau.map((column, columnIndex) => (
             <Column
@@ -123,7 +121,6 @@ export function Game(): JSX.Element {
             />
           ))}
         </div>
-        </LayoutGroup>
       </main>
       <DragOverlay>
         {dragCard ? (
