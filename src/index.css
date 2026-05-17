@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --card-w: 88px;
+  --card-h: 124px;
+  --card-overlap-down: 34px;
+  --card-overlap-hidden: 20px;
+  --table-bg: #1a6b3c;
+  --table-texture: radial-gradient(ellipse at center, #1f7d47 0%, #145530 100%);
+  --card-bg: #ffffff;
+  --card-border: #c8c8c8;
+  --card-back-1: #1a5276;
+  --card-back-2: #154360;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --toolbar-bg: rgba(0, 0, 0, 0.3);
+  --toolbar-text: #fff;
+}
+
+:root[data-theme='green'] {
+  --table-bg: #1a6b3c;
+  --table-texture: radial-gradient(ellipse at center, #1f7d47 0%, #145530 100%);
+  --card-back-1: #1a5276;
+  --card-back-2: #154360;
+}
+
+:root[data-theme='blue'] {
+  --table-bg: #1a3a6b;
+  --table-texture: radial-gradient(ellipse at center, #1e4280 0%, #142d5c 100%);
+  --card-back-1: #0e5a8a;
+  --card-back-2: #0c4b74;
+}
+
+:root[data-theme='dark'] {
+  --table-bg: #111827;
+  --table-texture: #111827;
+  --card-bg: #f3f4f6;
+  --card-border: #9ca3af;
+  --card-back-1: #374151;
+  --card-back-2: #1f2937;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --toolbar-bg: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme='wood'] {
+  --table-bg: #5c3317;
+  --table-texture: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    #5c3317;
+  --card-back-1: #7f5539;
+  --card-back-2: #9c6644;
+}
+
+:root[data-theme='ruby'] {
+  --table-bg: #581c2e;
+  --table-texture: radial-gradient(ellipse at center, #7a253f 0%, #401321 100%);
+  --card-back-1: #9b1c3e;
+  --card-back-2: #69132b;
+}
+
+:root[data-theme='noir'] {
+  --table-bg: #050505;
+  --table-texture: radial-gradient(ellipse at center, #1c1c1c 0%, #000 100%);
+  --card-bg: #f5f5f5;
+  --card-border: #6b7280;
+  --card-back-1: #181818;
+  --card-back-2: #050505;
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  --toolbar-bg: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --card-w: 60px;
+    --card-h: 86px;
+    --card-overlap-down: 22px;
+    --card-overlap-hidden: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --card-w: 52px;
+    --card-h: 74px;
+    --card-overlap-down: 19px;
+    --card-overlap-hidden: 11px;
+  }
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+html, body {
+  /* prevent horizontal page bounce on iOS while still letting inner scrollers work */
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+* { box-sizing: border-box; }
+a { text-decoration: none; }
+a:hover { text-decoration: none; }
+
+/* tap to play feels better without the iOS 300 ms double-tap-zoom delay */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* hide ugly horizontal scrollbar on the toolbar action row */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* respect notched phones (iPhone 12+, Pixel etc.) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ───────────────────────── card backs ───────────────────────── */
+.card-back {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.28), transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.16) 0px, rgba(255, 255, 255, 0.16) 2px, transparent 2px, transparent 14px),
+    linear-gradient(135deg, var(--card-back-1), var(--card-back-2));
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+:root[data-card-back='classic'] .card-back {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.32), transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.14) 0px, rgba(255, 255, 255, 0.14) 2px, transparent 2px, transparent 14px),
+    linear-gradient(135deg, #ef1f2d, #d11424 60%, #a7121f);
+}
+
+:root[data-card-back='modern'] .card-back {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.28), transparent 35%),
+    linear-gradient(135deg, var(--card-back-1), var(--card-back-2));
+}
+
+:root[data-card-back='minimal'] .card-back {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)), var(--card-back-2);
+}
+
+:root[data-card-back='web'] .card-back {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 1px, transparent 2px) 0 0 / 16px 16px,
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 1px, transparent 2px) 8px 8px / 16px 16px,
+    linear-gradient(135deg, #4c1d95, #1e1b4b);
+}
+
+:root[data-card-back='neon'] .card-back {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255, 0, 200, 0.55), transparent 40%),
+    radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.55), transparent 40%),
+    linear-gradient(135deg, #1f0033, #001f2f);
+}
+
+:root[data-card-back='gold'] .card-back {
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.15) 0 4px, transparent 4px 8px),
+    linear-gradient(135deg, #f59e0b, #b45309);
+}
+
+/* ───────────────── card-back swatches in Settings ─────────────── */
+.card-back-swatch.back-classic {
+  background: linear-gradient(45deg,#1a5276 25%,#154360 25%,#154360 50%,#1a5276 50%,#1a5276 75%,#154360 75%,#154360 100%);
+  background-size: 12px 12px;
+}
+.card-back-swatch.back-modern {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 38%), linear-gradient(135deg, #0f4c81, #173d67);
+}
+.card-back-swatch.back-minimal { background: #173d67; }
+.card-back-swatch.back-web {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 1px, transparent 2px) 0 0 / 8px 8px,
+    linear-gradient(135deg, #4c1d95, #1e1b4b);
+}
+.card-back-swatch.back-neon {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255,0,200,0.55), transparent 40%),
+    radial-gradient(circle at 75% 75%, rgba(0,200,255,0.55), transparent 40%),
+    linear-gradient(135deg, #1f0033, #001f2f);
+}
+.card-back-swatch.back-gold {
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.15) 0 4px, transparent 4px 8px),
+    linear-gradient(135deg, #f59e0b, #b45309);
+}
+
+/* ───────────────────────── motion / juice ───────────────────────── */
+@keyframes shake {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-2px, 1px) rotate(-0.15deg); }
+  20%  { transform: translate(3px, -1px) rotate(0.2deg); }
+  30%  { transform: translate(-3px, 2px) rotate(-0.2deg); }
+  40%  { transform: translate(2px, -2px) rotate(0.15deg); }
+  50%  { transform: translate(-2px, 0) rotate(0); }
+  60%  { transform: translate(2px, 1px) rotate(0.1deg); }
+  70%  { transform: translate(-1px, -1px) rotate(-0.1deg); }
+  80%  { transform: translate(1px, 1px) rotate(0); }
+  100% { transform: translate(0, 0); }
+}
+.shake { animation: shake 500ms ease; }
+
+@keyframes pulseRing {
+  0%   { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.55); }
+  70%  { box-shadow: 0 0 0 12px rgba(251, 191, 36, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+}
+.ring-pulse { animation: pulseRing 1.4s ease-out infinite; }
+
+/* slide-up: used by all bottom-sheet panels on mobile */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* pop-in: used by centered modals */
+@keyframes modalIn {
+  from { transform: scale(0.93) translateY(8px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);   opacity: 1; }
+}
+
+/* slide in from the right: used by Settings panel on desktop */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake, .ring-pulse, .animate-pulse { animation: none !important; }
+}
